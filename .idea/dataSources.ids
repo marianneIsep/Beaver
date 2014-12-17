@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - Beaver_db@localhost" uuid="36014f27-5990-4f1d-a0ce-fa240e425120">
+    <database-info product="MySQL" version="5.6.17" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="beaver_db"/>
+    <table name="Buyer" schema="" catalog="beaver_db" type="TABLE">
+      <column name="bId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="bValue" sqlType="DECIMAL" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="bTitle" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="bDescription" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="bId"/>
+      <foreign-key name="buyer_ibfk_1" columns="pId" ref-table="Participant" ref-schema="" ref-catalog="beaver_db" ref-columns="pId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="concerned_ibfk_2" table="Concerned" schema="" catalog="beaver_db" columns="bId"/>
+    </table>
+    <table name="Concerned" schema="" catalog="beaver_db" type="TABLE">
+      <column name="cId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="pId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="bId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="cId"/>
+      <foreign-key name="concerned_ibfk_1" columns="pId" ref-table="Participant" ref-schema="" ref-catalog="beaver_db" ref-columns="pId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="concerned_ibfk_2" columns="bId" ref-table="Buyer" ref-schema="" ref-catalog="beaver_db" ref-columns="bId" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="Debt" schema="" catalog="beaver_db" type="TABLE">
+      <column name="dId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="dAmount" sqlType="DECIMAL" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="dState" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="pId_giver" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="pId_receiver" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="dId"/>
+      <foreign-key name="debt_ibfk_1" columns="pId_giver" ref-table="Participant" ref-schema="" ref-catalog="beaver_db" ref-columns="pId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="debt_ibfk_2" columns="pId_receiver" ref-table="Participant" ref-schema="" ref-catalog="beaver_db" ref-columns="pId" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="Event" schema="" catalog="beaver_db" type="TABLE">
+      <column name="eId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="eTitle" sqlType="VARCHAR" precision="25" scale="0" nullable="false" jdbcType="12"/>
+      <column name="eDescription" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="eCreationDate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="eBeginDate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="eEndDate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="eId"/>
+      <exported-key name="participant_ibfk_2" table="Participant" schema="" catalog="beaver_db" columns="eId"/>
+    </table>
+    <table name="Participant" schema="" catalog="beaver_db" type="TABLE">
+      <column name="pId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="uId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="eId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="pId"/>
+      <foreign-key name="participant_ibfk_1" columns="uId" ref-table="User" ref-schema="" ref-catalog="beaver_db" ref-columns="uId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="participant_ibfk_2" columns="eId" ref-table="Event" ref-schema="" ref-catalog="beaver_db" ref-columns="eId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="buyer_ibfk_1" table="Buyer" schema="" catalog="beaver_db" columns="pId"/>
+      <exported-key name="concerned_ibfk_1" table="Concerned" schema="" catalog="beaver_db" columns="pId"/>
+      <exported-key name="debt_ibfk_1" table="Debt" schema="" catalog="beaver_db" columns="pId_giver"/>
+      <exported-key name="debt_ibfk_2" table="Debt" schema="" catalog="beaver_db" columns="pId_receiver"/>
+    </table>
+    <table name="User" schema="" catalog="beaver_db" type="TABLE">
+      <column name="uId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="uPseudo" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="uPassword" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="uMail" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="uState" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="uId"/>
+      <exported-key name="participant_ibfk_1" table="Participant" schema="" catalog="beaver_db" columns="uId"/>
+    </table>
+  </data-source>
+</component>
